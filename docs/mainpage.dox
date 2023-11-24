@@ -1,0 +1,19 @@
+/*! \mainpage Documentation
+ *
+ * \section intro_sec Introduction
+ *   Welcome to my little notebook project.
+ *
+ *    This notebook project, called hermes, will allow for people to record their journey.
+ *    Everyone's journey is different but have similar experiences. This application will help in documenting
+ *    each journey by being able to pull from others experiences; thus not feel alone.
+ *
+ *    The hope is by connecting people with the same experiences; we can bridge the gap and reduce the
+ *    appalling suicide rate amongst the non-binary and trans communities. Especially with young people.
+ *
+ *
+ *
+ *
+ */
+
+ \cond ----------- Document the the hermes namespace. ------------   \endcond
+ /*! \namespace hermes */
