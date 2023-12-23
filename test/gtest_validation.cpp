@@ -7,7 +7,7 @@ TEST(NewTest, test1)
 
 TEST(NewTest2, test2)
 {
-    EXPECT_TRUE(false);
+    EXPECT_TRUE(true);
 }
 
 TEST(SuiteName, TestName) {

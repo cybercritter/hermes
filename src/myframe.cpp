@@ -2,11 +2,21 @@
 // Created by Michael Reid on 8/16/23.
 //
 
-#include <wx/wxDateTime>
+#include <wx/wxprec.h>
+
+#ifndef WX_PRECOMP
+    #include "wx/log.h"
+  	#include "wx/frame.h"
+	#include "wx/menu.h"
+  	#include "wx/layout.h"
+  	#include "wx/msgdlg.h"
+  	#include "wx/sizer.h"
+#endif
+
+#include "myframe.h"
 
 namespace cybercritter {
-    MyFrame::MyFrame()
-            : wxFrame(nullptr, wxID_ANY, "Hello World") {
+    MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World")  {
         auto menuFile = new wxMenu();
         (void)menuFile->Append(static_cast<int32_t>(ID::ID_Hello), "&Hello...\tCtrl-H",
                          "Help string shown in status bar for this menu item");

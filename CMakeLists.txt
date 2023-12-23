@@ -11,69 +11,24 @@ add_subdirectory(lib/googletest-1.14.0)
 add_subdirectory(src)
 add_subdirectory(test)
 
-include (FetchContent)
-#----------------------------------wxWidgets------------------------------------
-
-set(wxBUILD_SHARED ON)
-set(wxWidgets_USE_STATIC 1)
-set(wxBUILD_MONOLITHOC OFF)
-set(wxUSE_STL ON)
-
-include(FetchContent)
-   FetchContent_Declare(
-      wxWidgets
-      GIT_REPOSITORY "https://github.com/wxWidgets/wxWidgets"
-      GIT_TAG        "v3.2.2.1"
-      GIT_PROGRESS   TRUE
-      GIT_SHALLOW    TRUE
-   )
-   set(FETCHCONTENT_QUIET NO)
-   if(NOT EMSPHINX_BUILD_SHARED)
-      set(wxBUILD_SHARED OFF CACHE BOOL "Build wx libraries as shared libs")
-   endif()
-
-   # set(wxBUILD_PRECOMP OFF) # this prevents errors on recompile after the git hash changes
-   if(UNIX AND NOT APPLE) # linux
-      # use gtk3 on linux
-      set(wxBUILD_TOOLKIT gtk3 CACHE STRING "Toolkit used by wxWidgets")
-
-      # try to find gtk3 (this is based on wxWidget's cmake: wxWidgets/build/cmake/modules/FindGTK3.cmake)
-      find_package(PkgConfig)
-      pkg_check_modules(GTK3 QUIET gtk+-3.0)
-      if(NOT GTK3_FOUND)
-         message(FATAL_ERROR "wxWidgets needs gtk3 and libSM, make sure you have it with e.g.:\n"
-                             "\tdebian 'apt-get install libgtk-3-dev libsm-dev build-essential'\n"
-                             "\tcentos 'yum install gtk3-devel libSM-devel'\n")
-      endif()
-
-      # static linking has the same issue as hdf5 (the gtk .a file references commands in a .so so -ld is needed)
-      if(NOT EMSPHINX_BUILD_SHARED)
-         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -ldl")
-      endif()
-   endif()
-
-   if(APPLE)
-      set(wxUSE_WEBKIT OFF CACHE BOOL "use wxWebKitCtrl (Mac-only, use wxWebView instead)")
-      set(wxUSE_WEBVIEW_WEBKIT OFF CACHE BOOL "use wxWebView WebKit background")
-      set(wxUSE_LIBSDL OFF CACHE BOOL "Use SDL for wxSound implementation.")
-   endif()
-
-   FetchContent_MakeAvailable(wxWidgets)
-
-#-----------------------------End-wxWidgets------------------------------------
-
 set(SOURCE 
     src/main.cpp
     src/myapp.cpp
     src/myframp.cpp)
 
+
+find_package(wxWidgets REQUIRED COMPONENTS net core base)
+if(wxWidgets_USE_FILE) # not defined in CONFIG mode
+    include(${wxWidgets_USE_FILE})
+endif()
+set(wxUSE_GUI ON)
 add_executable(${PROJECT_NAME}
                 src/main.cpp 
                 src/myapp.cpp 
                 src/myframe.cpp)
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${wxWidgets_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME} PRIVATE wx::base wx::core)
+target_include_directories(${PROJECT_NAME} PRIVATE /usr/local/wx-3.2/)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${wxWidgets_LIBRARIES})
 
 #-----------------------------Documentation(Doxygen)----------------------------
 # Require dot, treat the other components as optional

@@ -7,18 +7,20 @@
 #include <wx/wx.h>
 #include "myframe.h"
 
+
 namespace cybercritter {
-class MyFrame : public ::wxFrame
+class MyFrame : public wxFrame
     {
     public:
         MyFrame();
+        ~MyFrame() = default;
 
     private:
         void OnHello(wxCommandEvent& event);
         void OnExit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
 
-        struct tm current_time;
+        struct tm current_time{};
     };
 
     enum class ID
