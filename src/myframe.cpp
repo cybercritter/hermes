@@ -50,6 +50,6 @@ namespace cybercritter {
     }
 
     void MyFrame::OnHello(wxCommandEvent &) {
-        wxLogMessage("Hello world from wxWidgets!");
+        wxLogMessage("Hermes Initialized correctly!");
     }
 }
