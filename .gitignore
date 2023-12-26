@@ -470,3 +470,5 @@ cmake-build-release/**
 cmake-build-release-coverage/**
 build-debug/**
 out/**
+.idea/**
+.vscode/**
