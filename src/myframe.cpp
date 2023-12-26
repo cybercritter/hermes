@@ -16,7 +16,7 @@
 #include "myframe.h"
 
 namespace cybercritter {
-    MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World")  {
+    MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hermes Personal Log")  {
         auto menuFile = new wxMenu();
         (void)menuFile->Append(static_cast<int32_t>(ID::ID_Hello), "&Hello...\tCtrl-H",
                          "Help string shown in status bar for this menu item");
